@@ -6,15 +6,35 @@
 
 
 class Solution(object):
+    # def hasCycle(self, head):
+    #     """
+    #     :type head: ListNode
+    #     :rtype: bool
+    #     """
+    #     nodes = set()
+    #     while head:
+    #         nodes.add(head)
+    #         head = head.next
+    #         if head in nodes:
+    #             return True
+    #     return False
+
+    # BETTER SOLUTION (two-tracker)
     def hasCycle(self, head):
         """
         :type head: ListNode
         :rtype: bool
         """
-        nodes = set()
-        while head:
-            nodes.add(head)
-            head = head.next
-            if head in nodes:
-                return True
-        return False
+        if not head or not head.next:
+            return False
+
+        slow = head
+        fast = head.next
+
+        while slow != fast:
+            if not fast or not fast.next:
+                return False
+            slow = slow.next
+            fast = fast.next.next
+
+        return True
